@@ -1,5 +1,9 @@
 # 江南大学研究生学位论文 LaTeX 模板（2025 修订版）
 
+<p align="center">
+  <img src="assets/social-preview.png" alt="江南大学研究生学位论文 LaTeX 模板 2025 修订版预览图" width="860">
+</p>
+
 本仓库是适配《江南大学研究生学位论文要求及格式规范（2025年修订）》的江南大学研究生学位论文 LaTeX 模板，支持 Windows、macOS 本地编译，也可导入 Overleaf 使用。模板基于 Bo Zhuang 的原版 `jnthesis` 修改，面向硕士学位论文、博士学位论文和毕业论文写作。
 
 关键词：江南大学论文模板、江南大学研究生学位论文模板、江南大学硕士论文模板、江南大学博士论文模板、江南大学 LaTeX 模板、江南大学 Overleaf 模板、江南大学 2025 论文格式、江南大学本地 LaTeX 编译、Jiangnan University thesis template、jnthesis。
