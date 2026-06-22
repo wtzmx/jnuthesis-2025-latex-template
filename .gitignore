@@ -1,0 +1,24 @@
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+*.thm
+*.xdv
+*.auxlock
+
+# Generated PDFs and local exports
+root.pdf
+*.bak
+
+# OS/editor files
+.DS_Store

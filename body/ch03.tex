@@ -1,0 +1,41 @@
+% !Mode:: "TeX:UTF-8"
+% !TeX encoding = UTF-8 Unicode
+% !TeX program = xelatex
+% !TeX root = ../root.tex
+
+\chapter{模型或系统设计}
+\label{ch:design}
+
+\section{总体设计}
+
+这里填写模型、系统或实验方案的总体设计。
+
+\section{表格示例}
+
+三线表示例如表\ref{tab:sample}所示。
+\begin{table}[htbp]
+  \centering
+  \caption{示例表格}
+  \label{tab:sample}
+  \begin{tabular}{ccc}
+    \toprule
+    指标 & 方法一 & 方法二 \\
+    \midrule
+    指标一 & 0.80 & 0.85 \\
+    指标二 & 0.70 & 0.76 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{算法示例}
+
+\begin{algorithm}[htbp]
+  \caption{示例算法}
+  \KwIn{输入数据 $X$}
+  \KwOut{输出结果 $Y$}
+  初始化参数\;
+  \For{$i=1$ \KwTo $n$}{
+    更新中间变量\;
+  }
+  返回 $Y$\;
+\end{algorithm}
