@@ -11,6 +11,8 @@
 > 原版项目：<https://gitee.com/zhuangbo/jnthesis>
 >
 > 江南大学研究生院官方说明：<https://gs.jiangnan.edu.cn/info/1057/2812.htm>
+>
+> 项目主页：<https://lou-kaiqiang.github.io/jnuthesis-2025-latex-template/>
 
 ## 快速开始（推荐本地编译）
 

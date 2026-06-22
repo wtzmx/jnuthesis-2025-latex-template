@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lou-kaiqiang.github.io/jnuthesis-2025-latex-template/sitemap.xml
