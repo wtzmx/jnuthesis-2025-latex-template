@@ -1,0 +1,41 @@
+% 与学校 Word 附件一致的字体。宋体没有独立粗体字款，使用合成加粗。
+% 优先用户自备 fonts/ 文件，其次 macOS Word 自带字体，最后系统字体。
+% 不将商业字体复制进仓库；缺失时明确报错，避免无提示使用 Fandol。
+\newcommand{\jnsetsong}[2]{%
+  \newfontfamily\jncoversymbolfont[AutoFakeBold=2.17,#1]{#2}% 封面圈号使用宋体字形
+  \setCJKmainfont[AutoFakeBold=2.17,#1]{#2}%
+  \setCJKmonofont[AutoFakeBold=2.17,#1]{#2}%
+  \setCJKfamilyfont{zhsong}[AutoFakeBold=2.17,#1]{#2}%
+}
+\newcommand{\jnsethei}[2]{%
+  \setCJKsansfont[AutoFakeBold=2.17,#1]{#2}%
+  \setCJKfamilyfont{zhhei}[AutoFakeBold=2.17,#1]{#2}%
+}
+\IfFileExists{fonts/simsun.ttc}{\jnsetsong{Path=fonts/,FontIndex=0}{simsun.ttc}}{%
+  \IfFileExists{/Applications/Microsoft Word.app/Contents/Resources/DFonts/Simsun.ttc}{%
+    \jnsetsong{Path=/Applications/Microsoft Word.app/Contents/Resources/DFonts/,FontIndex=0}{Simsun.ttc}%
+  }{\IfFontExistsTF{SimSun}{\jnsetsong{}{SimSun}}{%
+    \ClassError{jnthesis}{SimSun font not found}{Install licensed SimSun or provide fonts/simsun.ttc.}%
+  }}%
+}
+\IfFileExists{fonts/simhei.ttf}{\jnsethei{Path=fonts/}{simhei.ttf}}{%
+  \IfFileExists{/Applications/Microsoft Word.app/Contents/Resources/DFonts/SimHei.ttf}{%
+    \jnsethei{Path=/Applications/Microsoft Word.app/Contents/Resources/DFonts/}{SimHei.ttf}%
+  }{\IfFontExistsTF{SimHei}{\jnsethei{}{SimHei}}{%
+    \ClassError{jnthesis}{SimHei font not found}{Install licensed SimHei or provide fonts/simhei.ttf.}%
+  }}%
+}
+\RequirePackage{mathspec}
+\IfFileExists{fonts/times.ttf}{%
+  \setmainfont[Path=fonts/,BoldFont=timesbd.ttf,ItalicFont=timesi.ttf,BoldItalicFont=timesbi.ttf]{times.ttf}%
+  \setsansfont[Path=fonts/,BoldFont=timesbd.ttf,ItalicFont=timesi.ttf,BoldItalicFont=timesbi.ttf]{times.ttf}%
+  \setmonofont[Path=fonts/,BoldFont=timesbd.ttf,ItalicFont=timesi.ttf,BoldItalicFont=timesbi.ttf]{times.ttf}%
+  \setmathsfont(Digits,Latin)[Path=fonts/,ItalicFont=timesi.ttf]{times.ttf}%
+}{%
+  \setmainfont{Times New Roman}
+  \setsansfont{Times New Roman}
+  \setmonofont{Times New Roman}
+  \setmathsfont(Digits,Latin){Times New Roman}%
+}
+\providecommand{\songti}{\CJKfamily{zhsong}}
+\providecommand{\heiti}{\CJKfamily{zhhei}}

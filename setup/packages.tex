@@ -1,0 +1,21 @@
+% !TeX root = ../root.tex
+% 文档类已加载图表、数学、算法、参考文献等基础宏包，不必重复加载。
+% 如需 TikZ / PGFPlots，可在此添加；默认不启用外部图缓存或 shell-escape。
+
+\usepackage{tabularx}
+\renewcommand{\tabularxcolumn}[1]{m{#1}}
+\sisetup{detect-weight=true, table-number-alignment=center}
+\graphicspath{{figures/}}
+
+\usepackage{cleveref}
+\crefname{equation}{公式}{公式}
+\crefname{figure}{图}{图}
+\crefname{table}{表}{表}
+\crefname{algorithm}{算法}{算法}
+\crefformat{section}{第#2#1#3节}
+\crefformat{subsection}{第#2#1#3节}
+\crefformat{subsubsection}{第#2#1#3节}
+
+\numberwithin{equation}{chapter}
+\renewcommand{\theequation}{\arabic{chapter}.\arabic{equation}}
+\hypersetup{colorlinks=true,linkcolor=black,citecolor=black,urlcolor=black}

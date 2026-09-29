@@ -1,163 +1,80 @@
-# 江南大学研究生学位论文 LaTeX 模板（2025 修订版）
+# 江南大学研究生学位论文 LaTeX 模板
 
-<p align="center">
-  <img src="assets/social-preview.png" alt="江南大学研究生学位论文 LaTeX 模板 2025 修订版预览图" width="860">
-</p>
+适配《江南大学研究生学位论文要求及格式规范（2025年修订）》。当前版本 **0.4.0**，支持硕士、博士的学术学位与专业学位封面。此派生版本由 [wtzmx](https://github.com/wtzmx) 维护。
 
-本仓库是适配《江南大学研究生学位论文要求及格式规范（2025年修订）》的江南大学研究生学位论文 LaTeX 模板，支持 Windows、macOS 本地编译，也可导入 Overleaf 使用。模板基于 Bo Zhuang 的原版 `jnthesis` 修改，面向硕士学位论文、博士学位论文和毕业论文写作。
+一次编译生成包含**封面、原创性声明及使用授权说明、答辩委员会名单、摘要、目录和正文**的完整 PDF。学校通知及五份 Word 附件保存在 [`参考/`](参考/)，随项目和发布包一起提供。
 
-关键词：江南大学论文模板、江南大学研究生学位论文模板、江南大学硕士论文模板、江南大学博士论文模板、江南大学 LaTeX 模板、江南大学 Overleaf 模板、江南大学 2025 论文格式、江南大学本地 LaTeX 编译、Jiangnan University thesis template、jnthesis。
+## 开始使用
 
-> 原版项目：<https://gitee.com/zhuangbo/jnthesis>
->
-> 江南大学研究生院官方说明：<https://gs.jiangnan.edu.cn/info/1057/2812.htm>
->
-> 项目主页：<https://lou-kaiqiang.github.io/jnuthesis-2025-latex-template/>
+需要 TeX Live / MacTeX / MiKTeX 中的 **XeLaTeX、BibTeX、latexmk**，以及宋体、黑体、仿宋、楷体、Times New Roman。macOS 可读取已安装 Microsoft Word 自带的中文字体；其他环境的准备方式见 [字体说明](fonts/README.md)。字体文件不随发布包提供。
 
-## 快速开始（推荐本地编译）
+1. 在 [`setup/settings.tex`](setup/settings.tex) 填写题目、作者、专业、导师及封面信息。
+2. 在 [`setup/committee.tex`](setup/committee.tex) 填写答辩委员会与日期。
+3. 编辑 `preface/`、`body/`、`appendix/` 中的内容，在 `main.tex` 管理章节。
+4. 在项目根目录执行：
 
-论文项目包含图片、PDF 封面和参考文献后可能超过 Overleaf 免费版项目大小限制，因此更推荐在本地安装 TeX 发行版后编译。
-
-通用命令行编译方式：
-
-```bash
-xelatex root.tex
-bibtex root
-xelatex root.tex
-xelatex root.tex
+```sh
+latexmk root.tex
 ```
 
-只改正文且没有新增参考文献时，通常执行一次即可：
+最终文件为 **`build/root.pdf`**，所有中间文件也放在 `build/`，不会散落到章节目录。发布 ZIP 中另附 `example.pdf` 供预览，内容仍是待填写的模板。
 
-```bash
-xelatex root.tex
+仅修改正文后再次运行同一命令即可。清除中间文件、保留 PDF：
+
+```sh
+latexmk -c root.tex
 ```
 
-## Windows 本地方案
+TeXShop、TeXstudio 或 VS Code 可打开 `root.tex`；建议选择 latexmk / XeLaTeX 构建方式。直接执行 `xelatex root.tex` 仍可使用，但会在源目录产生输出，且需要自行运行 BibTeX 和重复编译。
 
-推荐组合：
+### Overleaf
 
-- TeX 发行版：TeX Live 或 MiKTeX
-- 编辑器：TeXstudio，或 VS Code + LaTeX Workshop
-- 编译器：XeLaTeX
-- 主文件：`root.tex`
+上传发布 ZIP 后选择 `root.tex` 和 **XeLaTeX**。需按 [字体说明](fonts/README.md) 自备字体；如平台不采用本项目的输出目录设置，以平台生成的 PDF 为准。`参考/` 中的 PDF 和 Word 文件用于查阅，不参与编译。
 
-TeXstudio 设置：
+## 配置与目录
 
-1. 安装 TeX Live 或 MiKTeX。
-2. 安装 TeXstudio。
-3. 用 TeXstudio 打开 `root.tex`。
-4. 在 `Options -> Configure TeXstudio -> Build` 中，将默认编译器设置为 `XeLaTeX`。
-5. 点击编译按钮；若参考文献未生成，依次执行 XeLaTeX、BibTeX、XeLaTeX、XeLaTeX。
-
-VS Code 设置：
-
-1. 安装 TeX Live 或 MiKTeX。
-2. 安装 VS Code 扩展 `LaTeX Workshop`。
-3. 打开本仓库文件夹。
-4. 打开 `root.tex`，选择 XeLaTeX recipe 编译。
-
-## macOS 本地方案
-
-推荐组合：
-
-- TeX 发行版：MacTeX
-- 编辑器：TeXShop，TeXstudio，或 VS Code + LaTeX Workshop
-- 编译器：XeLaTeX
-- 主文件：`root.tex`
-
-TeXShop 设置：
-
-1. 安装 MacTeX。
-2. 用 TeXShop 打开 `root.tex`。
-3. 左上角编译方式选择 `XeLaTeX`。
-4. 点击 Typeset 编译；若参考文献未生成，按 XeLaTeX、BibTeX、XeLaTeX、XeLaTeX 的顺序编译。
-
-命令行编译：
-
-```bash
-cd path/to/jnthesis
-xelatex root.tex
-bibtex root
-xelatex root.tex
-xelatex root.tex
-```
-
-## Overleaf 方案（可选）
-
-1. 将本仓库下载为 ZIP，或 fork 后导入 Overleaf。
-2. 在 Overleaf 左上角打开 `Menu`。
-3. `Compiler` 选择 `XeLaTeX`。
-4. `Main document` 选择 `root.tex`。
-5. 如遇中文拼写检查提示，可将 `Spell check` 关闭。
-6. 编译 `root.tex`。
-
-如果参考文献没有正确生成，请按以下顺序完整编译：
-
-```text
-XeLaTeX -> BibTeX -> XeLaTeX -> XeLaTeX
-```
-
-## 文件结构
-
-| 文件/目录 | 说明 |
+| 路径 | 用途 |
 | --- | --- |
-| `root.tex` | 主入口文件，设置论文类型并组织全文结构 |
-| `main.tex` | 正文章节入口，可增删 `body/*.tex` |
-| `jnthesis.cls` | 江南大学论文格式文档类 |
-| `jn.bst` | BibTeX 参考文献样式 |
-| `setup/settings.tex` | 标题、作者、字体、宏包等用户设置 |
-| `setup/userdefs.tex` | 用户自定义命令 |
-| `preface/c_abstract.tex` | 中文摘要与关键词 |
-| `preface/e_abstract.tex` | 英文摘要与关键词 |
-| `body/ch01.tex` - `body/ch05.tex` | 示例正文章节 |
-| `appendix/acknowledgements.tex` | 致谢 |
-| `appendix/publications.tex` | 攻读学位期间取得的学术成果清单 |
-| `references.bib` | 参考文献数据库 |
-| `figures/` | 图片目录，用户可自行创建和放置图片 |
+| `root.tex` / `main.tex` | 论文结构 / 正文章节列表 |
+| `setup/settings.tex` | 封面信息与学术/专业学位选择 |
+| `setup/committee.tex` | 委员会名单和答辩日期 |
+| `setup/packages.tex` / `setup/userdefs.tex` | 附加宏包 / 自定义命令 |
+| `setup/fonts.tex` / `fonts/` | 字体配置 / 自备字体放置位置 |
+| `preface/` | 声明、中文摘要、英文摘要 |
+| `body/` / `appendix/` | 正文 / 致谢与成果清单 |
+| `figures/` / `references.bib` | 插图 / 文献数据库 |
+| `jnthesis.cls` / `jn*.sty` / `jn.bst` | 文档类、前置页和参考文献样式 |
+| `参考/` | 学校通知 PDF 及五份官方 Word 附件 |
+| `docs/` | 封面、格式依据、打印和发布说明 |
+| `scripts/release.py` | 本地构建发布包，不上传、不创建远程发布 |
+| `build/` / `dist/` | 本地编译 / 发布产物，均不加入 Git |
 
-## 常用修改
-
-在 `root.tex` 中选择论文类型：
+硕士和博士在 `root.tex` 中选择：
 
 ```tex
-\documentclass[master]{jnthesis} % 硕士学位论文
-% \documentclass[doctor]{jnthesis} % 博士学位论文
-% \documentclass[nodegree]{jnthesis} % 毕业论文
+\documentclass[master]{jnthesis} % 博士改为 doctor
 ```
 
-在 `setup/settings.tex` 中修改题目、作者和必要宏包：
+学术和专业学位在 `setup/settings.tex` 中选择 `degree-type = academic` 或 `professional`。专业学位封面自动增加行业导师栏。
 
-```tex
-\title{江南大学硕士学位论文题目}
-\author{作者姓名}
+## 填写与打印
+
+- [封面说明](docs/cover.md)
+- [完整论文填写与打印](docs/printing.md)
+- [2025 格式依据及附件差异](docs/format-2025.md)
+
+整份 PDF 按 **A4、100%、双面长边翻转**打印，并保留空白页，确保封面、声明页和委员会页单面印刷。签名、日期按学校要求亲笔填写。正文和个人信息仍需自行完成；书脊按装订厚度另行制作。
+
+## 发布维护
+
+```sh
+python3 scripts/release.py
 ```
 
-在 `main.tex` 中管理正文章节：
+脚本先编译，再生成 `dist/jnuthesis-2025-v0.4.0.zip` 及 SHA-256 校验文件。ZIP 包含源码、使用文档、完整参考附件和示例 PDF；排除字体文件、Git 元数据、编译缓存及本地发布目录。详见 [发布说明](docs/releasing.md) 和 [更新记录](CHANGELOG.md)。
 
-```tex
-\include{body/ch01}
-\include{body/ch02}
-```
+## 来源与许可
 
-正式提交时，封面、原创性声明、版权使用授权书、答辩委员会名单等页面通常需要按学校或学院要求生成 PDF 后插入。`root.tex` 中保留了对应示例注释：
+本仓库 Fork 自 [lou-kaiqiang/jnuthesis-2025-latex-template](https://github.com/lou-kaiqiang/jnuthesis-2025-latex-template)，上游基于 Bo Zhuang 的 [jnthesis](https://gitee.com/zhuangbo/jnthesis) 修改。本项目并非学校官方维护的模板。格式依据见随附通知和[研究生院说明](https://gs.jiangnan.edu.cn/info/1057/2812.htm)。
 
-```tex
-% \includepdf{cover.pdf}
-% \cleardoublepage
-% \includepdf{statement.pdf}
-```
-
-## 说明
-
-- 本模板以公开发布和本地/Overleaf 编译使用为目标，仓库内只保留占位示例内容，不包含个人论文正文、实验数据或个人成果。
-- 学校格式规范可能继续更新，提交前请以[江南大学研究生院官方说明](https://gs.jiangnan.edu.cn/info/1057/2812.htm)、学院通知或导师要求为准。
-- 如发现格式问题，欢迎提交 issue 或 pull request。
-
-## 致谢
-
-感谢 Bo Zhuang 提供原版江南大学学位论文 LaTeX 模板。本仓库在原版基础上修复部分 Overleaf 编译问题，并结合 2025 年修订格式要求做了适配。
-
-## License
-
-MIT License. See `LICENSE.txt`.
+项目主许可见 [LICENSE.txt](LICENSE.txt)。`jn.bst` 的 LPPL 声明、学校附件及校名字样的来源分别见 [第三方来源说明](THIRD_PARTY_NOTICES.md)，主许可不覆盖这些独立声明。

@@ -22,3 +22,14 @@ root.pdf
 
 # OS/editor files
 .DS_Store
+
+# Locally supplied licensed fonts (never redistribute)
+fonts/*.ttf
+fonts/*.ttc
+fonts/*.otf
+
+# Local build and release outputs
+/build/
+/dist/
+__pycache__/
+*.pyc

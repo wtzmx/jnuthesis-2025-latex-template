@@ -1,0 +1,113 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{jncover}[2026/09/29 Jiangnan University thesis cover]
+\RequirePackage{keyval}
+
+% Fields are configured once in setup/settings.tex. Title and author reuse
+% the standard \title and \author; no duplicate title/author fields are needed.
+\newif\ifjncover@professional
+\def\jncover@english{English Thesis Title}
+\def\jncover@classification{待填写}
+\def\jncover@udc{待填写}
+\def\jncover@secret{}
+\def\jncover@major{待填写}
+\def\jncover@direction{待填写}
+\def\jncover@supervisor{待填写}
+\def\jncover@industry{待填写}
+\def\jncover@group{}
+\def\jncover@date{二〇\quad 年\quad 月}
+\define@key{jncover}{degree-type}{%
+  \ifthenelse{\equal{#1}{academic}}{\jncover@professionalfalse}{%
+    \ifthenelse{\equal{#1}{professional}}{\jncover@professionaltrue}{%
+      \PackageError{jncover}{Invalid degree-type: #1}{Use academic or professional.}}}}
+\define@key{jncover}{english-title}{\def\jncover@english{#1}}
+\define@key{jncover}{classification}{\def\jncover@classification{#1}}
+\define@key{jncover}{udc}{\def\jncover@udc{#1}}
+\define@key{jncover}{secret}{\def\jncover@secret{#1}}
+\define@key{jncover}{major}{\def\jncover@major{#1}}
+\define@key{jncover}{direction}{\def\jncover@direction{#1}}
+\define@key{jncover}{supervisor}{\def\jncover@supervisor{#1}}
+\define@key{jncover}{industry-supervisor}{\def\jncover@industry{#1}}
+\define@key{jncover}{group-members}{\def\jncover@group{#1}}
+\define@key{jncover}{award-date}{\def\jncover@date{#1}}
+\newcommand{\jncoverinfo}[1]{\setkeys{jncover}{#1}}
+
+% 仿宋用于附件封面顶部的分类信息。
+\IfFileExists{fonts/simfang.ttf}{%
+  \setCJKfamilyfont{jncoverfang}[Path=fonts/]{simfang.ttf}%
+}{\IfFileExists{/Applications/Microsoft Word.app/Contents/Resources/DFonts/Fangsong.ttf}{%
+  \setCJKfamilyfont{jncoverfang}[Path=/Applications/Microsoft Word.app/Contents/Resources/DFonts/]{Fangsong.ttf}%
+}{\IfFontExistsTF{FangSong}{\setCJKfamilyfont{jncoverfang}{FangSong}}{%
+  \PackageError{jncover}{FangSong font not found}{Install licensed FangSong or provide fonts/simfang.ttf.}%
+}}}
+
+\newcommand{\jncover@field}[2]{%
+  \par\noindent
+  \hbox{%
+    \parbox[c]{5.3cm}{\songti\zihao{3}\bfseries #1}%
+    \hspace{0.3cm}%
+    \parbox[c]{7.7cm}{\centering\songti\zihao{-3}\bfseries
+      \strut #2\strut\par\vspace{1bp}\hrule height .4bp}%
+  }\par\vspace{4bp}%
+}
+\newcommand{\jncover@topfield}[2]{%
+  \makebox[2.7cm][l]{#1}\underline{\makebox[3.1cm][c]{\strut #2}}%
+}
+\newcommand{\jnmakecover}{%
+  \clearpage
+  \begingroup
+  \hypersetup{pageanchor=false}%
+  \pagestyle{empty}\thispagestyle{empty}%
+  \setstretch{1}\normalfont\songti\zihao{-4}%
+  \setlength{\parindent}{0pt}\setlength{\parskip}{0pt}%
+  \vbox to \textheight{%
+    \hsize=\textwidth
+    {\CJKfamily{jncoverfang}\zihao{4}%
+      \noindent\jncover@topfield{中图分类号}{\jncover@classification}\hfill
+      \jncover@topfield{学校代码}{10295}\par\vspace{7bp}%
+      \noindent\jncover@topfield{UDC 分类号}{\jncover@udc}\hfill
+      \jncover@topfield{密\hspace{2em}级}{\jncover@secret}\par}%
+    \vspace{18bp}%
+    \centerline{\includegraphics[width=5.4cm]{assets/jnu-wordmark.jpeg}}%
+    \vspace{8bp}%
+    {\centering\heiti\zihao{1}\bfseries
+      \ziju{0.6}\thedegree\jndegree 论文\par}%
+    \vspace{5bp}%
+    {\centering\songti\zihao{3}\bfseries
+      \ifjncover@professional （专\quad 业\quad 学\quad 位）%
+      \else （学\quad 术\quad 学\quad 位）\fi\par}%
+    \vspace{38bp}%
+    {\centering\heiti\fontsize{18bp}{25bp}\selectfont\@title\par}%
+    \vspace{12bp}%
+    {\centering\rmfamily\fontsize{16bp}{20bp}\selectfont\jncover@english\par}%
+    \vfill
+    \centerline{\begin{minipage}{13.3cm}
+      \jncover@field{研\hfill 究\hfill 生\hfill 姓\hfill 名：}{\@author}%
+      \ifjncover@professional
+        \jncover@field{专业类别、领域：}{\jncover@major}%
+      \else
+        \jncover@field{学\hfill 科\hfill 名\hfill 称：}{\jncover@major}%
+      \fi
+      \jncover@field{研\hfill 究\hfill 方\hfill 向：}{\jncover@direction}%
+      \ifjncover@professional
+        \jncover@field{导师{\jncoversymbolfont ①}姓名、职称：}{\jncover@supervisor}%
+        \jncover@field{导师{\jncoversymbolfont ②}姓名、职称：}{\jncover@industry}%
+      \else
+        \jncover@field{导师姓名、职称：}{\jncover@supervisor}%
+      \fi
+      \jncover@field{指\hfill 导\hfill 小\hfill 组\hfill 成\hfill 员：}{\jncover@group}%
+    \end{minipage}}%
+    \vspace{27bp}%
+    {\centering\heiti\zihao{-2}\bfseries 江\quad 南\quad 大\quad 学\par}%
+    \vspace{10bp}%
+    {\centering\songti\zihao{-4}地址：无锡市蠡湖大道 1800 号\par}%
+    \vspace{12bp}%
+    {\centering\songti\zihao{-4}\jncover@date\par}%
+    \vspace{8bp}%
+  }%
+  \clearpage
+  % 封面单面印刷；双面文档补一个无页码背面，使摘要仍从右页起。
+  \cleardoublepage
+  \endgroup
+  \hypersetup{pageanchor=true}%
+}
+\endinput

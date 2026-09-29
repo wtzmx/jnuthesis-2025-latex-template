@@ -1,0 +1,73 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{jnfrontpages}[2026/09/29 Declaration and defence committee pages]
+
+% 附件2的正文用四号楷体。优先用户提供的旧版字款，其次 Word/系统楷体。
+\IfFileExists{fonts/kaiti_gb2312.ttf}{%
+  \setCJKfamilyfont{jnstatementkai}[Path=fonts/]{kaiti_gb2312.ttf}%
+}{\IfFileExists{fonts/simkai.ttf}{%
+  \setCJKfamilyfont{jnstatementkai}[Path=fonts/]{simkai.ttf}%
+}{\IfFileExists{/Applications/Microsoft Word.app/Contents/Resources/DFonts/Kaiti.ttf}{%
+  \setCJKfamilyfont{jnstatementkai}[Path=/Applications/Microsoft Word.app/Contents/Resources/DFonts/]{Kaiti.ttf}%
+}{\IfFontExistsTF{KaiTi_GB2312}{\setCJKfamilyfont{jnstatementkai}{KaiTi_GB2312}}{%
+  \IfFontExistsTF{KaiTi}{\setCJKfamilyfont{jnstatementkai}{KaiTi}}{%
+    \PackageError{jnfrontpages}{KaiTi font not found}{Provide fonts/simkai.ttf or install licensed KaiTi.}%
+}}}}}
+
+\newsavebox{\jnfront@box}
+% 将各前置页作为一个整体输出，防止长名单悄悄溢出到背面。
+\newenvironment{jnsinglefrontpage}{%
+  \clearpage\begingroup
+  \hypersetup{pageanchor=false}%
+  \pagestyle{empty}\thispagestyle{empty}%
+  \setstretch{1}\normalfont\songti\zihao{-4}%
+  \setlength{\parindent}{0pt}\setlength{\parskip}{0pt}%
+  \begin{lrbox}{\jnfront@box}\begin{minipage}{\textwidth}%
+}{%
+  \end{minipage}\end{lrbox}%
+  \ifdim\dimexpr\ht\jnfront@box+\dp\jnfront@box\relax>\textheight
+    \PackageError{jnfrontpages}{Front page exceeds the printable text area}{Shorten committee entries or reduce the number of blank rows.}%
+  \fi
+  \noindent\usebox{\jnfront@box}\par
+  \clearpage\cleardoublepage
+  \endgroup
+  \hypersetup{pageanchor=true}%
+}
+\newcommand{\jnfrontheading}[1]{%
+  \vspace*{15.6bp}%
+  {\centering\normalfont\heiti\fontsize{16bp}{20bp}\selectfont #1\par}%
+  \vspace{15.6bp}%
+}
+\newcommand{\jnstatementpage}{%
+  \begin{jnsinglefrontpage}
+    \input{preface/declaration.tex}%
+  \end{jnsinglefrontpage}%
+}
+
+% 附件3的表格正文是小四号；在列中显式指定，以覆盖普通正文表格的五号。
+\newcommand{\jncommittee@cell}{\normalfont\songti\zihao{-4}\centering\arraybackslash\rule[-.5cm]{0pt}{1.5cm}}
+\newcommand{\jncommitteerow}[4]{%
+  #1 & #2 & #3 & #4\\\hline
+}
+\newcommand{\jncommitteemembers}{}
+\newcommand{\jndefensedate}{}
+\newcommand{\jncommitteepage}{%
+  \begin{jnsinglefrontpage}
+    \jnfrontheading{答辩委员会名单}%
+    \setlength{\tabcolsep}{6pt}%
+    \setlength{\arrayrulewidth}{.5bp}%
+    \setlength{\extrarowheight}{0pt}%
+    \renewcommand{\arraystretch}{1}%
+    \noindent\begin{tabular}{|
+      >{\jncommittee@cell}m{\dimexpr.14\textwidth-2\tabcolsep-1.25\arrayrulewidth\relax}|
+      >{\jncommittee@cell}m{\dimexpr.162\textwidth-2\tabcolsep-1.25\arrayrulewidth\relax}|
+      >{\jncommittee@cell}m{\dimexpr.175\textwidth-2\tabcolsep-1.25\arrayrulewidth\relax}|
+      >{\jncommittee@cell}m{\dimexpr.523\textwidth-2\tabcolsep-1.25\arrayrulewidth\relax}|}
+      \hline
+      \jncommitteerow{职务}{姓\quad 名}{职\quad 称}{工\quad 作\quad 单\quad 位}%
+      \jncommitteemembers
+      答辩日期 &
+      \multicolumn{3}{>{\jncommittee@cell}m{\dimexpr.86\textwidth-2\tabcolsep-1.75\arrayrulewidth\relax}|}{\jndefensedate}\\\hline
+    \end{tabular}%
+  \end{jnsinglefrontpage}%
+}
+\endinput

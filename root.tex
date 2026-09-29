@@ -1,82 +1,28 @@
-% !Mode:: "TeX:UTF-8"
 % !TeX encoding = UTF-8 Unicode
 % !TeX program = xelatex
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% overleaf 中会报警告Package fontspec Warning: 
-% Font "FandolSong-Regular""FandolHei-Regular""FandolFang-Regular" 
-% does not contain requested Script "CJK".
-% xeLatex本身的问题，下面这句强制静音这个警告，本地环境下可以注释
-\PassOptionsToPackage{quiet}{fontspec}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\documentclass[master]{jnthesis}       % doctor, master, nodegree
-	\input{setup/settings}             % 用户设置
-	\input{setup/userdefs}             % 用户自定义符号
-	\usepackage{graphicx}  % 插入图片的核心宏包
-	\graphicspath{{figures/}}
-	\usepackage{subfig}
-	\usepackage{float}     % 控制图片浮动位置（可选）
-
-	\usepackage{hyperref} % optional, for clickable links
-	\usepackage{cleveref}
-	% 设置 cleveref 宏包的选项，使其引用图片时显示为 "Fig."
-	\crefname{equation}{公式}{公式}
-	\crefname{figure}{图}{图}
-	\crefname{table}{表}{表}
-	\crefname{algorithm}{算法}{算法}
-	\crefformat{section}{第#2#1#3节}
-	\crefformat{subsection}{第#2#1#3节}
-	\crefformat{subsubsection}{第#2#1#3节}
-	% 1. 确保加载了 amsmath (你的代码里已经有了)
-	\usepackage{amsmath}
-	\numberwithin{equation}{chapter}
-	\renewcommand{\theequation}{\arabic{chapter}.\arabic{equation}}
-
-	%表格标签
-	\usepackage{booktabs}
-	\usepackage{array}
-	\usepackage{booktabs}
-	\usepackage{siunitx}
-	\sisetup{detect-weight=true, table-number-alignment=center}
-	\newcommand{\best}[1]{\bfseries #1} % 手动标注每列最优
-	\usepackage{enumitem}%（1）
-	\usepackage{tikz}
-	\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds}
-	\tikzexternaldisable
-	\usepackage{tabularx}
-	% 在导言区加上这句，让 X 列也默认垂直居中
-	\renewcommand{\tabularxcolumn}[1]{m{#1}}
-
-	\ctexset{
-    chapter = {
-        number = \arabic{chapter},
-        name = {第,章}
-    }
-	}
-	\RequirePackage{etoolbox}
-
-	\makeatletter
-	\pretocmd{\@chapter}{\cleardoublepage}{}{}
-	\makeatother
+\documentclass[master]{jnthesis} % master 硕士；doctor 博士
+\input{setup/settings}          % 题目、作者、封面信息
+\input{setup/committee}         % 答辩委员会及日期
+\input{setup/packages}          % 附加宏包与引用设置
+\input{setup/userdefs}          % 自定义命令
 
 \begin{document}
-	% 正式提交时通常需要使用学校系统或 Word 模板生成封面、原创性声明、
-	% 答辩委员会名单等 PDF 后插入。
-	% 示例:
-	% \includepdf{cover.pdf}
-	% \cleardoublepage
-	% \includepdf{statement.pdf}
-	% \cleardoublepage
-	% \includepdf{committee.pdf}
-	\jnfrontmatter                     % 论文开始
-	\include{preface/c_abstract}       % 中文摘要
-	\include{preface/e_abstract}       % 英文摘要
-	\jncontents                        % 目录
-    \jnmainmatter                      % 正文开始
-	\input{main}                       % 正文
-	\jnreferences                      % 参考文献
-	\include{appendix/acknowledgements}% 致谢
-	\include{appendix/publications}    % 发表论文列表
+\jnmakecover
+\jnstatementpage
+\jncommitteepage
+
+\jnfrontmatter
+\include{preface/c_abstract}
+\include{preface/e_abstract}
+\jncontents
+
+\jnmainmatter
+\input{main}
+\jnreferences
+% 如需附录，在致谢之前启用：
+% \jnappendix
+% \include{appendix/supplement}
+\include{appendix/acknowledgements}
+\include{appendix/publications}
 \end{document}

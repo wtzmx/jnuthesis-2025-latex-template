@@ -269,7 +269,6 @@ FUNCTION {output.check}
 FUNCTION {fin.entry}
 { add.period$
   write$
-  "\vspace{-0.5em}" write$
 }
 
 FUNCTION {new.block}
@@ -1978,10 +1977,6 @@ FUNCTION {begin.bib}
     { preamble$ write$ newline$ }
   if$
   "\begin{thebibliography}{" number.label int.to.str$ * "}" *
-  write$ newline$
-  "\linespread{1.25}"
-  write$ newline$
-  "\setlength{\itemsep}{1ex}"
   write$ newline$
   "\providecommand{\natexlab}[1]{#1}"
   write$ newline$

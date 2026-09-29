@@ -1,78 +1,21 @@
-% !Mode:: "TeX:UTF-8"
-% !TeX encoding = UTF-8 Unicode
-% !TeX program = xelatex
 % !TeX root = ../root.tex
+% 论文信息集中在此填写；字体配置见 fonts.tex。
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%             用户设置               %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% 题目, 作者, 日期 (用于标题页和 PDF 元数据)
 \title{江南大学硕士学位论文题目}
 \author{作者姓名}
-\date{\today}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% 设置插图文件路径
-\graphicspath{{figures/}} % 插图文件路径 (以 / 结尾)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% 修改中英文字体
-% CTEX默认正文宋体，注释下面这句
-% \setCJKmainfont[AutoFakeBold={2.17}]{SimSun}
-\setmainfont{Times New Roman}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% 其他宏包
-\usepackage{tikz}             % Tikz 绘图
-\usepackage{pgfplots}         % PGFPlots 图表
-\pgfplotsset{compat=newest}
-\usepgfplotslibrary{external} % 生成图表文件
-\tikzexternalize              % 生成图文件
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% 其他设置
-
-% 会报警告
-\setlength{\headheight}{27pt}
-
-% mathrsfs这个宏包报警告 Font shape `U/rsfs/m/n' in size <15.05624> not available
-\DeclareFontFamily{U}{rsfs}{\skewchar\font127 }
-\DeclareFontShape{U}{rsfs}{m}{n}{%
-   <-6.5> rsfs5
-   <6.5-8> rsfs7
-   <8-> rsfs10
-}{}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 链接样式
-\hypersetup{
-  colorlinks=true,
-  linkcolor=black,
-  citecolor=black,
+% 封面：master/doctor 在 root.tex 中选择；学术/专业学位在此选择。
+% 所有待填写项请替换为真实信息；中文题名一般不超过 25 字。
+\jncoverinfo{
+  degree-type = academic, % academic 学术学位；professional 专业学位
+  english-title = {English Title of the Thesis},
+  classification = {待填写}, % 中图分类号
+  udc = {待填写},
+  secret = {}, % 非涉密论文留空
+  major = {学科名称}, % 专业学位填写专业类别、领域
+  direction = {研究方向},
+  supervisor = {导师姓名\quad 职称}, % 专业学位：校内导师
+  industry-supervisor = {行业导师姓名\quad 职称}, % 仅专业学位显示
+  group-members = {}, % 无指导小组成员可留空
+  award-date = {二〇\quad 年\quad 月} % 填写学位授予年月
 }
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 公式编号 (c.s.n)
-%\renewcommand{\theequation}{\arabic{chapter}.\arabic{section}.\arabic{equation}}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\usepackage{syntonly} % 快速检查错误, 分页但不生成 DVI 输出结果
-%\syntaxonly           % 仅检查语法, 不分页(更快速)
-
-%\includeonly{body/ch01}
-%\includeonly{body/ch02}
-%\includeonly{body/ch03}
-%\includeonly{body/ch04}
-%\includeonly{body/ch05}
-%\includeonly{body/ch06}
-%\includeonly{body/ch07}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
